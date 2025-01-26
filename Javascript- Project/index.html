@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Task Manager made by Mehal</h1>
+    <form id="taskForm">
+      <label for="taskTitle">Task Title</label>
+      <input type="text" id="taskTitle" placeholder="Task Title" required>
+      <label for="taskDescription">Task Description</label>
+      <textarea id="taskDescription" placeholder="Task Description"></textarea>
+      <label for="taskPriority">Task Priority</label>
+      <select id="taskPriority" aria-label="Task Priority">
+        <option value="low">Low Priority</option>
+        <option value="medium">Medium Priority</option>
+        <option value="high">High Priority</option>
+      </select>
+      <label for="taskDueDate">Due Date</label>
+      <input type="date" id="taskDueDate">
+      <button type="submit">Add Task</button>
+    </form>
+
+    <div class="controls">
+      <label for="filterPriority">Filter by Priority:</label>
+      <select id="filterPriority">
+        <option value="all">All</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <label for="filterCompletion">Filter by Completion:</label>
+      <select id="filterCompletion">
+        <option value="all">All</option>
+        <option value="completed">Completed</option>
+        <option value="incomplete">Incomplete</option>
+      </select>
+
+      <label for="sortBy">Sort By:</label>
+      <select id="sortBy">
+        <option value="none">None</option>
+        <option value="priority">Priority</option>
+        <option value="dueDate">Due Date</option>
+        <option value="creationDate">Creation Date</option>
+      </select>
+
+      <label for="search">Search:</label>
+      <input type="text" id="search" placeholder="Search tasks...">
+    </div>
+
+    <div id="taskList"></div>
+  </div>
+  <script src="taskManager.js"></script>
+</body>
+</html>
