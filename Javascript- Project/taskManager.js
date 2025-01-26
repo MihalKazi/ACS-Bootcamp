@@ -1,4 +1,6 @@
 let tasks = [];
+
+// Load tasks from localStorage on page load
 document.addEventListener('DOMContentLoaded', () => {
   const storedTasks = localStorage.getItem('tasks');
   if (storedTasks) {
@@ -12,6 +14,7 @@ const saveTasks = () => {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
+// Function to add a new task
 const addTask = (title, description, priority, dueDate) => {
   const newTask = {
     id: generateId(),
@@ -27,12 +30,14 @@ const addTask = (title, description, priority, dueDate) => {
   renderTasks();
 };
 
+// Function to delete a task
 const deleteTask = (taskId) => {
   tasks = tasks.filter((task) => task.id !== taskId);
   saveTasks();
   renderTasks();
 };
 
+// Function to update a task
 const updateTask = (taskId, updates) => {
   tasks = tasks.map((task) =>
     task.id === taskId ? { ...task, ...updates } : task
@@ -41,6 +46,7 @@ const updateTask = (taskId, updates) => {
   renderTasks();
 };
 
+// Function to toggle task completion
 const toggleTaskCompletion = (taskId) => {
   const task = tasks.find((task) => task.id === taskId);
   if (task) {
@@ -50,6 +56,7 @@ const toggleTaskCompletion = (taskId) => {
   }
 };
 
+// Function to filter tasks
 const filterTasks = () => {
   const priorityFilter = document.getElementById('filterPriority').value;
   const completionFilter = document.getElementById('filterCompletion').value;
@@ -65,6 +72,7 @@ const filterTasks = () => {
   });
 };
 
+// Function to sort tasks
 const sortTasks = (filteredTasks) => {
   const sortBy = document.getElementById('sortBy').value;
 
@@ -83,7 +91,7 @@ const sortTasks = (filteredTasks) => {
   }
 };
 
-
+// Function to search tasks
 const searchTasks = (filteredTasks) => {
   const searchQuery = document.getElementById('search').value.toLowerCase();
   return filteredTasks.filter(
@@ -93,7 +101,7 @@ const searchTasks = (filteredTasks) => {
   );
 };
 
-
+// Function to render tasks
 const renderTasks = () => {
   const taskList = document.getElementById('taskList');
   let filteredTasks = filterTasks();
@@ -121,7 +129,7 @@ const renderTasks = () => {
     )
     .join('');
 };
-
+// Event listener for the task form
 document.getElementById('taskForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const title = document.getElementById('taskTitle').value;
@@ -137,6 +145,8 @@ document.getElementById('taskForm').addEventListener('submit', (e) => {
   addTask(title, description, priority, dueDate);
   document.getElementById('taskForm').reset();
 });
+
+// Event listeners for filtering, sorting, and searching
 
 document.getElementById('filterPriority').addEventListener('change', renderTasks);
 document.getElementById('filterCompletion').addEventListener('change', renderTasks);
