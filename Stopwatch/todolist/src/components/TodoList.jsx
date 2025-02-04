@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TodoItem from './TodoItem';
 import CreateTodo from './CreateTodo';
-import { fetchTodos, createTodo } from '../api';
+import { fetchTodos } from '../api';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);

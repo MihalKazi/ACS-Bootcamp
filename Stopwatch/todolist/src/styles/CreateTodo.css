@@ -23,7 +23,7 @@
   
   .create-todo button {
     padding: 10px;
-    background-color: #6a11cb;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -32,5 +32,5 @@
   }
   
   .create-todo button:hover {
-    background-color: #2575fc;
+    background-color: #0056b3;
   }

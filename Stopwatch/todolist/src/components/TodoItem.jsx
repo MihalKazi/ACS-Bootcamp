@@ -3,8 +3,9 @@ import { updateTodo } from '../api';
 
 const TodoItem = ({ todo, onUpdate }) => {
   const [timeLeft, setTimeLeft] = useState('');
+  const [isCompleted, setIsCompleted] = useState(todo.completed);
 
-  // Calculate time left for the deadline
+  // Countdown for the deadline
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
@@ -22,19 +23,19 @@ const TodoItem = ({ todo, onUpdate }) => {
       }
     };
 
-    // Update the countdown every second
     const interval = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    // Cleanup the interval when the component unmounts
     return () => clearInterval(interval);
-  }, [todo.deadline]); // Re-run effect if the deadline changes
+  }, [todo.deadline]);
 
-  const handleComplete = async () => {
-    const updatedTodo = { ...todo, completed: true };
+  // Toggle completion status
+  const toggleCompletion = async () => {
+    const updatedTodo = { ...todo, completed: !isCompleted };
     await updateTodo(todo.id, updatedTodo);
-    onUpdate(todo.id, updatedTodo); // Notify parent component to update the state
+    setIsCompleted(!isCompleted); // Update local state
+    onUpdate(todo.id, updatedTodo); // Notify parent component
   };
 
   return (
@@ -44,10 +45,10 @@ const TodoItem = ({ todo, onUpdate }) => {
       <p>Deadline: {new Date(todo.deadline).toLocaleString()}</p>
       <p>Time Left: {timeLeft}</p>
       <p>Priority: {todo.priority}</p>
-      <p>Status: {todo.completed ? 'Completed' : 'Pending'}</p>
-      {!todo.completed && (
-        <button onClick={handleComplete}>Mark as Completed</button>
-      )}
+      <p>Status: {isCompleted ? 'Completed' : 'Pending'}</p>
+      <button onClick={toggleCompletion}>
+        {isCompleted ? 'Undo' : 'Mark as Completed'}
+      </button>
     </div>
   );
 };

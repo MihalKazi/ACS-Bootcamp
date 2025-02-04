@@ -35,6 +35,7 @@ export const createTodo = async (todo) => {
   });
   return response.json();
 };
+
 // Update a todo
 export const updateTodo = async (id, data) => {
   const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
@@ -42,12 +43,17 @@ export const updateTodo = async (id, data) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
+
   return response.json();
 };
 
 // Fetch user profile
 export const fetchProfile = async () => {
-  const response = await fetch(`${API_BASE_URL}/profile`);
+  const response = await fetch(`${API_BASE_URL}/profile`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`, // Include the token
+    },
+  });
   return response.json();
 };
 
@@ -55,7 +61,10 @@ export const fetchProfile = async () => {
 export const updateProfile = async (data) => {
   const response = await fetch(`${API_BASE_URL}/profile`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`, // Include the token
+    },
     body: JSON.stringify(data),
   });
   return response.json();
